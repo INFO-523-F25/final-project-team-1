@@ -1,11 +1,11 @@
 ---
-title: "Proposal title"
+title: "Predicting Formula 1 Race Winners"
 subtitle: "Proposal"
 author: 
-  - name: "Team Name - Team member 1, Team member 2,..."
+  - name: "Team 1 - Rucha Bhale, Aiden Insall"
     affiliations:
       - name: "College of Information Science, University of Arizona"
-description: "Project description"
+description: "Predicting Formula 1 race winner using historical race data and ensemble methods in machine learning"
 format:
   html:
     code-tools: true
@@ -32,14 +32,39 @@ import numpy as np
 #| message: false
 ```
 
-A brief description of your dataset including its provenance, dimensions, etc. as well as the reason why you chose this dataset.
+## A brief description of your dataset including its provenance, dimensions, etc. as well as the reason why you chose this dataset.
+We will use the FastF1 Python Library which provides comprehensive access to Formula 1 data through two integrated sources:
+1. Historical Data (via Ergast API):
+- Coverage: 1996-2024 (29 seasons)
+- Variables: Race results, qualifying positions, driver standings, constructor standings, circuit information
+- Key features: Position, Grid Position, Points, Laps Completed, Status (Finished/DNF), Fastest Lap
+
+2. Modern Telemetry & Timing Data (via F1 Live Timing API):
+- Coverage: 2018-2024 (7 seasons with full telemetry)
+- Variables: Lap-by-lap timing, sector times, tire compounds, speed traps, weather conditions
+- Key features: Sector times, lap time consistency, tire strategy, track temperature
+
+Dataset Dimensions:
+- Races: ~147 Grand Prix events (21 races/season × 7 seasons)
+- Observations: ~2,940 driver-race combinations (20 drivers × 147 races)
+
+
+### Why This Dataset?
+FastF1 provides official F1 timing data with high accuracy, maintained by an active developer community. 
+Access to both historical results and modern telemetry enables sophisticated feature engineering beyond simple win/loss records.
 
 Make sure to load the data and use inline code for some of this information.
 
 ## Questions
 
-The two questions you want to answer.
+Question 1: What factors are most predictive of Formula 1 race winners?
+
+Question 2: Can ensemble methods improve race winner prediction accuracy beyond individual models, and which ensemble strategy performs best for this classification task?
+
 
 ## Analysis plan
 
 -   A plan for answering each of the questions including the variables involved, variables to be created (if any), external data to be merged in (if any).
+Develop a machine learning classification model to predict Formula 1 race winners by analyzing historical race performance, qualifying results, and driver/constructor trends using ensemble methods. Fo which 
+We will compare the performance of individual classification models against ensemble approaches. 
+For which we will train multiple candidate models, evaluate their individual performance, and then test whether combining their predictions through ensemble methods (stacking, voting, or boosting) yields better results than any single approach.
