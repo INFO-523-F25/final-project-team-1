@@ -33,7 +33,7 @@ import numpy as np
 ```
 
 ## A brief description of your dataset including its provenance, dimensions, etc. as well as the reason why you chose this dataset.
-We will use the FastF1 Python Library which provides comprehensive access to Formula 1 data through two integrated sources that together enable long-term statistical analysis and detailed modern performance modeling:
+We will use the FastF1 Python Library which provides comprehensive access to Formula 1 data through two integrated sources, that together enable long-term statistical analysis and detailed modern performance modeling:
 1. Historical Data (via Ergast API):
 - Coverage: 1996-2024 (29 seasons)
 - Variables: Race results, qualifying positions, driver standings, constructor standings, circuit information
