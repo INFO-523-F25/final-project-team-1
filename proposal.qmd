@@ -5,7 +5,7 @@ author:
   - name: "Team 1 - Rucha Bhale, Aiden Insall"
     affiliations:
       - name: "College of Information Science, University of Arizona"
-description: "Predicting Formula 1 race winner using historical race data and ensemble methods in machine learning"
+description: "Predicting Formula 1 race outcomes using historical data and regression-based machine learning models."
 format:
   html:
     code-tools: true
@@ -23,6 +23,7 @@ jupyter: python3
 #| label: load-pkgs
 #| message: false
 import numpy as np
+import pandas as pd
 ```
 
 ## Dataset
@@ -30,41 +31,73 @@ import numpy as np
 ```{python}
 #| label: load-dataset
 #| message: false
+races = pd.read_csv('data/races.csv')
+results = pd.read_csv('data/results.csv')
+drivers = pd.read_csv('data/drivers.csv')
+constructors = pd.read_csv('data/constructors.csv')
+driver_standings = pd.read_csv('data/driver_standings.csv')
+constructor_standings = pd.read_csv('data/constructor_standings.csv')
+qualifying = pd.read_csv('data/qualifying.csv')
+circuits = pd.read_csv('data/circuits.csv')
 ```
 
 ## A brief description of your dataset including its provenance, dimensions, etc. as well as the reason why you chose this dataset.
-We will use the FastF1 Python Library which provides comprehensive access to Formula 1 data through two integrated sources, that together enable long-term statistical analysis and detailed modern performance modeling:
-1. Historical Data (via Ergast API):
-- Coverage: 1996-2024 (29 seasons)
-- Variables: Race results, qualifying positions, driver standings, constructor standings, circuit information
-- Key features: Position, Grid Position, Points, Laps Completed, Status (Finished/DNF), Fastest Lap
-
-2. Modern Telemetry & Timing Data (via F1 Live Timing API):
-- Coverage: 2018-2024 (7 seasons with full telemetry)
-- Variables: Lap-by-lap timing, sector times, tire compounds, speed traps, weather conditions
-- Key features: Sector times, lap time consistency, tire strategy, track temperature
+Our analysis utilizes the comprehensive Formula 1 World Championship dataset available on Kaggle, originally compiled from the Ergast Developer API. 
+This dataset represents historical records of Formula 1 racing spanning from 1950 to 2024. 
 
 Dataset Dimensions:
-- Races: ~147 Grand Prix events (21 races/season × 7 seasons)
-- Observations: ~2,940 driver-race combinations (20 drivers × 147 races)
-
+- Coverage: 74 seasons (1950–2024)
+- Total races: ~1,100 Grand Prix events
+- Race results: ~25,000 driver-race combinations
+- Files: 14 CSV files including results, qualifying, standings, circuits, and lap times
 
 ### Why This Dataset?
-FastF1 provides official F1 timing data with high accuracy, maintained by an active developer community. 
-Access to both historical results and modern telemetry enables sophisticated feature engineering beyond simple win/loss records.
-
-Make sure to load the data and use inline code for some of this information.
+- Sufficient data for training robust machine learning models. 
+- The data has been carefully curated and cleaned by the F1 analytics community, reducing preprocessing overhead and ensuring reliability. 
+- The dataset's structure naturally separates pre-race information (qualifying results, standings, circuit data) from race outcomes, which is crucial for building a 
+prediction model that avoids data leakage. 
+ - The dataset is well-documented and widely used in motorsport analytics research, providing a strong foundation for reproducible research.
 
 ## Questions
 
-Question 1: What factors are most predictive of Formula 1 race winners?
-
-Question 2: Can ensemble methods improve race winner prediction accuracy beyond individual models, and which ensemble strategy performs best for this classification task?
-
+Question 1: Which pre-race factors are most predictive of a Formula 1 driver’s race outcome? (e.g., grid position, constructor, driver form, circuit characteristics)
+Question 2: Can regression models accurately predict driver finishing positions using only pre-race data, and which model performs best for this task?
+* The focus will be on understanding what influences success rather than perfect prediction accuracy.
 
 ## Analysis plan
 
--   A plan for answering each of the questions including the variables involved, variables to be created (if any), external data to be merged in (if any).
-Develop a machine learning classification model to predict Formula 1 race winners by analyzing historical race performance, qualifying results, and driver/constructor trends using ensemble methods. Fo which 
-We will compare the performance of individual classification models against ensemble approaches. 
-For which we will train multiple candidate models, evaluate their individual performance, and then test whether combining their predictions through ensemble methods (stacking, voting, or boosting) yields better results than any single approach.
+We will predict a driver’s finishing position (positionOrder) using data available before or at the start of each race.
+This will help identify which pre-race factors contribute most strongly to race outcomes.
+
+### Data Preparation
+ - Merge relevant CSVs: results, races, drivers, constructors, circuits, and qualifying.
+ - Select only pre-race variables to avoid leakage from in-race or post-race data.
+ - Apply feature engineering to derive:
+    - Average driver points from recent races
+    - Team performance trend (constructor standings)
+    - Qualifying position and grid advantage
+    - Circuit-level attributes (e.g., country, type)
+ - Handle missing values, encode categorical variables, and normalize numerical ones.
+
+### Modeling Approach
+We will start with multiple regression models to predict finishing position (positionOrder) for each driver:
+Linear Regression: as a baseline for interpretability
+Random Forest Regressor: to capture non-linear interactions
+XGBoost Regressor: efficient, high-performing gradient boosting method
+If results show instability or complementary strengths across models, we may test a simple ensemble (e.g., stacking) to assess improvement, but only if it adds meaningful value.
+
+### Evaluation Metrics
+We will evaluate model performance using:
+ - Mean Absolute Error (MAE) – how far the prediction is from the true position
+ - R² Score i.e.how much variance is explained by the model
+We’ll also compare feature importances to identify the most influential predictors (e.g., grid position, constructor, driver consistency).
+
+### Validation
+ - Train/test split by season to mimic real-world forecasting
+ - 5-fold cross-validation to ensure generalization and reduce overfitting
+
+## Weekly Plan
+Weeks 1-2: Data loading, exploratory analysis, and feature engineering. We will merge the 14 CSV files, create historical rolling averages. 
+Weeks 3-4: Individual model training and hyperparameter tuning. We will establish baseline performance and identify the strongest individual model through cross-validation.
+Week 5: Ensemble model implementation and comprehensive evaluation. 
+Week 6: Final analysis, visualization, and report preparation. 
