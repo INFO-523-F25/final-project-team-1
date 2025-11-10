@@ -1,33 +1,142 @@
 # Data
--   **[FastF1]**: Provides access to F1 lap timing, car telemetry and position, tyre data, weather data, the event schedule and session results. Official documentation can be found [here](https://docs.fastf1.dev/index.html)
+-   **ERGAST API**: The Ergast API is a free, open-source web service that provides historical Formula 1 race data from 1950 to 2024, including details on races, drivers, constructors, results, qualifying, and lap times. In this project, we’re using that same structured Ergast dataset via its Kaggle export. 
 
-# Overview over the available data
-
-| **Topic** | **Data** | **References** |
-|------------|-----------|----------------|
-| **Event Schedule** | event names, countries, locations, dates, scheduled starting times,… (previous and current season including upcoming events) | [`events`](https://docs.fastf1.dev/events.html#module-fastf1.events), [`get_event_schedule()`](https://docs.fastf1.dev/fastf1.html#fastf1.get_event_schedule), [`get_event()`](https://docs.fastf1.dev/fastf1.html#fastf1.get_event) |
-| **Results** | driver names, team names, finishing and grid positions, points, finishing status,… | [`SessionResults`](https://docs.fastf1.dev/core.html#fastf1.core.SessionResults), [`DriverResult`](https://docs.fastf1.dev/core.html#fastf1.core.DriverResult) |
-| **Timing Data** | sector times, lap times, pit stops, tyre data and much more | [`laps`](https://docs.fastf1.dev/core.html#fastf1.core.Session.laps), [`Laps`](https://docs.fastf1.dev/core.html#fastf1.core.Laps) |
-| **Track Status** | flags, safety car | [`track_status`](https://docs.fastf1.dev/core.html#fastf1.core.Session.track_status) |
-| **Session Status** | started, finished, finalized | [`session_status`](https://docs.fastf1.dev/core.html#fastf1.core.Session.session_status) |
-| **Race Control Messages** | investigations, penalties, restart announcements,… | [`race_control_messages`](https://docs.fastf1.dev/core.html#fastf1.core.Session.race_control_messages) |
-| **Telemetry** | speed, rpm, gear, normalized track position,… | [`Telemetry`](https://docs.fastf1.dev/core.html#fastf1.core.Telemetry), [`get_car_data()`](https://docs.fastf1.dev/core.html#fastf1.core.Lap.get_car_data) |
-| **Track Markers** | corner numbers, marshall sectors, marshall lights | [`get_circuit_info()`](https://docs.fastf1.dev/core.html#fastf1.core.Session.get_circuit_info), [`Circuit Information`](https://docs.fastf1.dev/circuit_info.html#circuit-info) |
-| **Ergast API** | all endpoints that are provided by Ergast | [`Ergast API Interface`](https://docs.fastf1.dev/ergast.html#ergast) |
-
-
-# Codebook for Dataset
-There are numerous variables and data points available in this API, and this information will be expanded and updated as the project progresses.
+# Codebook for Dataset (all datasets)
 
 ## Variable Names and Descriptions:
+**Circuits**
+ - circuitId: Unique circuit identifier
+ - circuitRef: Short reference name for the circuit
+ - name: Official circuit name
+ - location: City or locality of the circuit
+ - country: Country where circuit is located
+ - lat: Latitude coordinate
+ - lng: Longitude coordinate
+ - alt: Altitude above sea level (may be null)
+ - url: Wikipedia or official reference link
 
--   **variable**: 
-** There are numerous variables and data points available in this API, and this information will be expanded and updated as the project progresses.
+**Drivers**
+ - driverId: Unique driver identifier
+ - driverRef: Short reference name
+ - number: Permanent car number of the driver
+ - code: 3-letter driver code (e.g., VER, HAM)
+ - forename: Driver’s first name
+ - surname: Driver’s last name
+ - dob: Date of birth
+ - nationality: Driver’s nationality
+ - url: Wikipedia or official link
 
-## Data Types:
+**Constructors**
+ - constructorId: Unique constructor (team) identifier
+ - constructorRef: Short reference name
+ - name: Full constructor name
+ - nationality: Team nationality
+ - url: Wikipedia or official team page
 
--   **Column**:
-There are numerous variables and data points available in this API, and this information will be expanded and updated as the project progresses.
+**Results**
+ - resultId: Unique result identifier
+ - raceId: Linked race ID
+ - driverId: Linked driver ID
+ - constructorId: Linked constructor ID
+ - number: Car number used in race
+ - grid: Starting grid position
+ - position: Finishing position
+ - positionText: Textual representation of position (e.g., R for retired)
+ - positionOrder: Numeric order for classification
+ - points: Points scored in race
+ - laps: Number of laps completed
+ - time: Race time string (e.g., 1:36:23.456)
+ - milliseconds: Race time in milliseconds
+ - fastestLap: Lap number of fastest lap
+ - rank: Rank of fastest lap (1 = fastest)
+ - fastestLapTime: Time of fastest lap
+ - fastestLapSpeed: Average speed during fastest lap
+ - statusId: Linked race status code
+
+**Races**
+ - raceId: Unique race identifier
+ - year: Year of race
+ - round: Round number in that season
+ - circuitId: Linked circuit ID
+ - name: Grand Prix name
+ - date: Race date
+ - time: Start time (UTC)
+ - url: Wikipedia link
+ - fp1_date/fp2_date/fp3_date/qualify_date/sprint_date: Session dates (if available)
+ - fp1_time/fp2_time/fp3_time/qualify_time/sprint_time: Session times (if available)
+
+**Qualifying**
+ - qualifyId: Unique qualifying session identifier
+ - raceId: Linked race ID
+ - driverId: Linked driver ID
+ - constructorId: Linked constructor ID
+ - number: Car number
+ - position: Qualifying position
+ - q1/q2/q3: Recorded times in qualifying rounds 1–3
+
+**Lap Times**
+ - raceId: Linked race ID
+ - driverId: Linked driver ID
+ - lap: Lap number
+ - position: Driver position at that lap
+ - time: Lap time (HH:MM:SS.mmm)
+ - milliseconds: Lap time in milliseconds
+
+**Pit Stops**
+ - raceId: Linked race ID
+ - driverId: Linked driver ID
+ - stop: Pit stop sequence number
+ - lap: Lap when pit stop occurred
+ - time: Timestamp of pit entry
+ - duration: Duration string of stop (e.g., “24.1”)
+ - milliseconds: Duration in milliseconds
+
+**Constructor Results**
+ - constructorResultsId: Unique ID for constructor race result
+ - raceId: Linked race ID
+ - constructorId: Linked constructor ID
+ - points: Points earned by constructor
+ - status: Status (e.g., “Finished”, “Disqualified”)
+
+**Constructor Standings**
+ - constructorStandingsId: Unique ID for standings entry
+ - raceId: Linked race ID
+ - constructorId: Linked constructor ID
+ - points: Total season points so far
+ - position: Current position in constructor championship
+ - wins: Total wins so far
+
+**Driver Standings**
+ - driverStandingsId: Unique ID for standings entry
+ - raceId: Linked race ID
+ - driverId: Linked driver ID
+ - points: Total season points so far
+ - position: Current position in driver championship
+ - wins: Total wins so far
+
+**Sprint Results**
+ - resultId: Unique result identifier for sprint race
+ - raceId: Linked race ID
+ - driverId: Linked driver ID
+ - constructorId: Linked constructor ID
+ - grid: Starting grid position in sprint
+ - position: Finishing position in sprint
+ - points: Points earned in sprint
+ - laps: Number of laps completed
+ - time: Sprint duration
+ - milliseconds: Duration in ms
+ - fastestLap: Lap number of fastest lap in sprint
+ - statusId: Linked status code
+
+**Seasons**
+ - year: Season year
+ - url: Wikipedia or official link
+
+**Status**
+ - statusId: Unique identifier for finish status
+ - status: Description (e.g., “Finished”, “Accident”, “Gearbox”)
+
+
 
 
 
