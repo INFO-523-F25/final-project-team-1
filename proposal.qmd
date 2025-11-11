@@ -81,15 +81,15 @@ This will help identify which pre-race factors contribute most strongly to race 
 
 ### Modeling Approach
 We will start with multiple regression models to predict finishing position (positionOrder) for each driver:
-Linear Regression: as a baseline for interpretability
-Random Forest Regressor: to capture non-linear interactions
-XGBoost Regressor: efficient, high-performing gradient boosting method
+ - Linear Regression: baseline for interpretability
+ - Random Forest Regressor: capture non-linear interactions
+ - XGBoost Regressor: efficient, high-performance gradient boosting method
 If results show instability or complementary strengths across models, we may test a simple ensemble (e.g., stacking) to assess improvement, but only if it adds meaningful value.
 
 ### Evaluation Metrics
 We will evaluate model performance using:
  - Mean Absolute Error (MAE) – how far the prediction is from the true position
- - R² Score i.e.how much variance is explained by the model
+ - R² Score, i.e., how much variance is explained by the model
 We’ll also compare feature importances to identify the most influential predictors (e.g., grid position, constructor, driver consistency).
 
 ### Validation
@@ -97,7 +97,7 @@ We’ll also compare feature importances to identify the most influential predic
  - 5-fold cross-validation to ensure generalization and reduce overfitting
 
 ## Weekly Plan
-Weeks 1-2: Data loading, exploratory analysis, and feature engineering. We will merge the 14 CSV files, create historical rolling averages. 
-Weeks 3-4: Individual model training and hyperparameter tuning. We will establish baseline performance and identify the strongest individual model through cross-validation.
-Week 5: Ensemble model implementation and comprehensive evaluation. 
-Week 6: Final analysis, visualization, and report preparation. 
+Weeks 1–2: Loading data, performing exploratory analysis, and engineering features. Merging the 14 CSV files and creating historical rolling averages.  
+Weeks 3–4: Training individual models and performing hyperparameter tuning. Establishing baseline performance and identifying the strongest individual model through cross-validation.  
+Week 5: Implementing the ensemble model and conducting a comprehensive evaluation.  
+Week 6: Performing final analysis, creating one or more visualizations, and preparing the report.
