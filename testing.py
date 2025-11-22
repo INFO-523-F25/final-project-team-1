@@ -13,3 +13,8 @@ dfs = [pd.read_csv(file) for file in csv_files]
 
 #check the .head() of the first CSV
 print(dfs[0].head())
+
+#Concatenate them side by side (columns), as I don't know precisely which columns to "merge on" here, with .merge, so .concat is used instead
+merged_df = pd.concat(dfs, axis=1)
+
+print(merged_df.head())
