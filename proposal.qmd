@@ -60,7 +60,7 @@ prediction model that avoids data leakage.
 
 ## Questions
 
-Question 1: Which pre-race factors are most predictive of a Formula 1 driver’s race outcome? (e.g., grid position, constructor, driver form, circuit characteristics)
+Question 1: Which pre-race factors are most predictive of a Formula 1 driver’s race outcome? (e.g., grid position, constructor, driver form, circuit characteristics).  
 Question 2: Can regression models accurately predict driver finishing positions using only pre-race data, and which model performs best for this task?
 * The focus will be on understanding what influences success rather than perfect prediction accuracy.
 
