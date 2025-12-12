@@ -1,11 +1,11 @@
 ---
-title: "Project Title"
+title: "Predicting Formula 1 Race Winners using pre-race data"
 subtitle: "INFO 523 - Final Project"
 author: 
-  - name: "Team name - Team member 1, Team member 2,..."
+  - name: "Team name - Rucha Bhale, Aiden Insall"
     affiliations:
       - name: "College of Information Science, University of Arizona"
-description: "Project description"
+description: "Predicting Formula 1 race outcomes using historical data and regression-based machine learning models"
 format:
    html:
     code-tools: true
@@ -24,8 +24,12 @@ This project predicts Formula 1 race finishing positions using machine learning 
 We address two questions: 
 1. Which pre-race factors best predict race outcomes, 
 2. Which regression model performs optimally?
+
 We processed 10,494 race records (1994-2024) from the Kaggle Ergast F1 dataset, engineering six features: grid position, rolling averages capturing recent form, circuit-specific history, team performance, and championship points. A temporal train-validation-test split (1994-2015, 2016-2018, 2019-2024) ensured realistic evaluation.
+
 We compared Linear Regression, Random Forest, XGBoost, and a Stacking Ensemble. Linear Regression achieved the best performance with 3.32 Mean Absolute Error (MAE) and R² of 0.453, revealing predominantly linear relationships in F1 data that negate the need for complex algorithms.
+
 Feature importance analysis shows grid position (35%) and constructor performance (28%) dominate predictions at 63% combined weight, validating the critical role of qualifying pace and car quality. Recent form contributes 13%, while other factors add minimal value.
+
 Our R² of 0.45 demonstrates that 45% of race outcomes are predictable from pre-race data, while 55% depends on unpredictable race events like crashes, mechanical failures, and weather. This quantifies the boundary between F1's analytical and chaotic elements, providing teams with actionable insights on resource allocation while confirming that inherent unpredictability makes the sport compelling. The 3.32 position error represents competitive performance for pre-race models and approaches the theoretical prediction ceiling.
 

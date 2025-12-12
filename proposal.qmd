@@ -1,5 +1,5 @@
 ---
-title: "Predicting Formula 1 Race Winners"
+title: "Predicting Formula 1 Race Winners using pre-race data"
 subtitle: "Proposal"
 author: 
   - name: "Team 1 - Rucha Bhale, Aiden Insall"
