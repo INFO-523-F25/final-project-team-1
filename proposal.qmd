@@ -31,14 +31,14 @@ import pandas as pd
 ```{python}
 #| label: load-dataset
 #| message: false
-races = pd.read_csv('data/races.csv')
-results = pd.read_csv('data/results.csv')
-drivers = pd.read_csv('data/drivers.csv')
-constructors = pd.read_csv('data/constructors.csv')
-driver_standings = pd.read_csv('data/driver_standings.csv')
-constructor_standings = pd.read_csv('data/constructor_standings.csv')
-qualifying = pd.read_csv('data/qualifying.csv')
-circuits = pd.read_csv('data/circuits.csv')
+races = pd.read_csv('../data/raw/races.csv')
+results = pd.read_csv('../data/raw/results.csv')
+drivers = pd.read_csv('../data/raw/drivers.csv')
+constructors = pd.read_csv('../data/raw/constructors.csv')
+driver_standings = pd.read_csv('../data/raw/driver_standings.csv')
+constructor_standings = pd.read_csv('../data/raw/constructor_standings.csv')
+qualifying = pd.read_csv('../data/raw/qualifying.csv')
+circuits = pd.read_csv('../data/raw/circuits.csv')
 ```
 
 ## A brief description of your dataset including its provenance, dimensions, etc. as well as the reason why you chose this dataset.
