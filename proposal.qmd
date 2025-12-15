@@ -58,6 +58,13 @@ Dataset Dimensions:
 prediction model that avoids data leakage. 
  - The dataset is well-documented and widely used in motorsport analytics research, providing a strong foundation for reproducible research.
 
+
+### Motivation & Real-World Applications
+Understanding which pre-race factors drive Formula 1 success provides actionable insights for multiple stakeholders:
+ - For F1 Teams: Predictive models can inform resource allocation between qualifying optimization and race-day strategy. By quantifying the relative importance of grid position, recent form, and team performance, teams can justify investments in qualifying simulations, aerodynamic development, or strategic planning.
+ - For Analysts & Broadcasters: Data-driven pre-race predictions enhance viewer engagement through evidence-based commentary. 
+ - For Sports Analytics Research: This project demonstrates best practices for temporal modeling in sequential competitions—preventing data leakage in time-series data, balancing model complexity with interpretability, and validating predictions using chronological splits. These techniques transfer to other motorsports and sports with similar temporal structures.
+
 ## Questions
 
 Question 1: Which pre-race factors are most predictive of a Formula 1 driver’s race outcome? (e.g., grid position, constructor, driver form, circuit characteristics).  
